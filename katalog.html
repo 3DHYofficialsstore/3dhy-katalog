@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Katalog Produk — 3DHY Official Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -23,88 +25,159 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <style>
   :root{
-    --brand:#C1272D; --brand-dark:#8E1B20; --ink:#1C1C1C; --bg:#F5F5F3; --line:#E7E4DE; --wa:#22A559; --radius:10px;
+    --navy-deep:#071B3D;
+    --navy:#0E2A5E;
+    --blue:#1663FF;
+    --blue-soft:#EAF1FF;
+    --ink:#0F1A2E;
+    --sub:#63708A;
+    --line:#E3E9F3;
+    --bg:#F6F8FC;
+    --wa:#1DA851;
+    --radius:16px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{ font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
+  body{
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Sora', 'Inter', sans-serif; }
   a{ color:inherit; }
-  header.site{ background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:30; }
-  .brandrow{ max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:12px 20px; gap:14px; flex-wrap:wrap; }
-  .brandmark{ display:flex; align-items:center; gap:10px; }
-  .brandmark .logo{ width:40px; height:40px; border-radius:8px; overflow:hidden; flex-shrink:0; }
+  img{ max-width:100%; }
+
+  /* Hero / header combined band */
+  .hero-band{
+    background: radial-gradient(1200px 500px at 15% -10%, #1B4FCC 0%, transparent 60%),
+                linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 65%, var(--blue) 130%);
+    color:#fff;
+    padding-bottom:34px;
+  }
+  .brandrow{
+    max-width:1140px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 20px 0; gap:14px; flex-wrap:wrap;
+  }
+  .brandmark{ display:flex; align-items:center; gap:11px; }
+  .brandmark .logo{ width:42px; height:42px; border-radius:11px; overflow:hidden; flex-shrink:0; box-shadow:0 4px 14px rgba(0,0,0,.25); }
   .brandmark .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .brandmark .name{ font-size:16px; font-weight:800; }
-  .header-cta{ background:var(--wa); color:#fff; border:none; padding:9px 16px; border-radius:8px; font-weight:700; font-size:13px; text-decoration:none; display:inline-flex; align-items:center; gap:7px; }
+  .brandmark .name{ font-family:'Sora',sans-serif; font-size:16.5px; font-weight:700; letter-spacing:-.01em; }
+  .brandmark .sub{ font-size:11px; color:#B7C6EA; }
+  .header-cta{
+    background:var(--wa); color:#fff; border:none; padding:10px 18px;
+    border-radius:999px; font-weight:700; font-size:13px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:7px;
+    box-shadow:0 6px 16px rgba(29,168,81,.35);
+  }
 
-  main{ max-width:1120px; margin:0 auto; padding:26px 20px 50px; }
+  .hero-content{ max-width:1140px; margin:0 auto; padding:34px 20px 0; }
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:7px;
+    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22);
+    padding:6px 13px; border-radius:999px; font-size:11.5px; font-weight:600; color:#D7E3FF;
+    margin-bottom:16px;
+  }
+  .hero-content h1{ font-size:30px; font-weight:800; line-height:1.15; max-width:22ch; letter-spacing:-.015em; }
+  .hero-content h1 span{ color:#8FB3FF; }
+  .hero-content p{ font-size:14px; color:#C2D0EE; margin-top:10px; max-width:46ch; }
 
-  .toolbar{
-    position:sticky; top:65px; background:var(--bg); z-index:20;
-    padding:10px 0 16px; display:flex; flex-direction:column; gap:12px;
+  /* Search + toolbar floating card */
+  .toolbar-card{
+    max-width:1140px; margin:26px auto 0; padding:0 20px;
+  }
+  .toolbar-inner{
+    background:#fff; border-radius:var(--radius);
+    box-shadow:0 20px 45px -20px rgba(9,30,74,.35);
+    padding:14px 16px; display:flex; flex-direction:column; gap:12px;
   }
   .search-box{
-    width:100%; padding:12px 16px; border:1.5px solid var(--line); border-radius:10px;
-    font-size:14px; background:#fff; outline:none;
+    width:100%; padding:12px 16px; border:1.5px solid var(--line); border-radius:12px;
+    font-size:14px; background:var(--bg); outline:none; color:var(--ink);
   }
-  .search-box:focus{ border-color:var(--brand); }
+  .search-box:focus{ border-color:var(--blue); background:#fff; }
   .cat-scroll{ display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; }
   .cat-pill{
-    flex-shrink:0; padding:7px 14px; border-radius:999px; font-size:12.5px; font-weight:700;
-    background:#fff; border:1.5px solid var(--line); cursor:pointer; white-space:nowrap;
+    flex-shrink:0; padding:7px 15px; border-radius:999px; font-size:12.5px; font-weight:600;
+    background:var(--blue-soft); border:1.5px solid transparent; color:var(--navy); cursor:pointer; white-space:nowrap;
   }
-  .cat-pill.active{ background:var(--brand); border-color:var(--brand); color:#fff; }
+  .cat-pill.active{ background:var(--blue); color:#fff; }
 
-  .result-count{ font-size:12.5px; color:#888; margin:8px 0 14px; }
+  main{ max-width:1140px; margin:0 auto; padding:26px 20px 60px; }
+  .result-count{ font-size:12.5px; color:var(--sub); margin:4px 0 16px; font-weight:500; }
 
-  .product-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
-  .pcard{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
-  .pcard .pthumb{ aspect-ratio:1; background:#f0f0f0; position:relative; overflow:hidden; }
+  .product-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:18px; }
+  .pcard{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; display:flex; flex-direction:column;
+    transition:box-shadow .18s ease, transform .18s ease;
+  }
+  .pcard:hover{ box-shadow:0 18px 34px -18px rgba(9,30,74,.28); transform:translateY(-2px); }
+  .pcard .pthumb{ aspect-ratio:1; background:var(--blue-soft); position:relative; overflow:hidden; }
   .pcard .pthumb img{ width:100%; height:100%; object-fit:cover; display:block; }
   .pcard .pthumb .nav-btn{
     position:absolute; top:50%; transform:translateY(-50%);
     width:32px; height:32px; border-radius:50%; border:none;
-    background:rgba(0,0,0,.45); color:#fff; font-size:16px; cursor:pointer;
+    background:rgba(7,27,61,.55); backdrop-filter:blur(2px); color:#fff; font-size:17px; cursor:pointer;
     display:flex; align-items:center; justify-content:center; z-index:2;
   }
-  .pcard .pthumb .nav-prev{ left:8px; }
-  .pcard .pthumb .nav-next{ right:8px; }
+  .pcard .pthumb .nav-btn:hover{ background:var(--blue); }
+  .pcard .pthumb .nav-prev{ left:9px; }
+  .pcard .pthumb .nav-next{ right:9px; }
   .pcard .pthumb .variant-badge{
-    position:absolute; bottom:8px; left:8px; background:rgba(0,0,0,.55); color:#fff;
-    font-size:11px; font-weight:700; padding:4px 9px; border-radius:999px; z-index:2;
+    position:absolute; bottom:9px; left:9px; background:rgba(7,27,61,.72); color:#fff;
+    font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px; z-index:2;
   }
-  .pcard .pbody{ padding:12px; flex:1; display:flex; flex-direction:column; }
-  .pcard .pcat{ font-size:10px; color:var(--brand); font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-bottom:4px; }
-  .pcard .ptitle{ font-size:13px; font-weight:700; line-height:1.3; margin-bottom:8px; min-height:34px; }
-  .pcard .pprice{ font-size:16px; font-weight:800; color:var(--brand); margin-bottom:10px; }
-  .pcard .btn{ margin-top:auto; display:block; text-align:center; padding:8px; border-radius:8px; font-size:12.5px; font-weight:700; text-decoration:none; background:var(--wa); color:#fff; }
+  .pcard .pbody{ padding:14px; flex:1; display:flex; flex-direction:column; }
+  .pcard .pcat{ font-size:10px; color:var(--blue); font-weight:700; text-transform:uppercase; letter-spacing:.05em; margin-bottom:5px; }
+  .pcard .ptitle{ font-family:'Sora',sans-serif; font-size:13.5px; font-weight:700; line-height:1.3; margin-bottom:6px; min-height:35px; }
+  .pcard .pdesc{ font-size:11px; color:var(--sub); line-height:1.45; margin-bottom:10px; }
+  .pcard .pprice{ font-size:17px; font-weight:800; color:var(--navy); margin-bottom:12px; }
+  .pcard .btn{
+    margin-top:auto; display:block; text-align:center; padding:9px; border-radius:10px;
+    font-size:12.5px; font-weight:700; text-decoration:none; background:var(--wa); color:#fff;
+  }
 
-  .empty-state{ text-align:center; padding:60px 20px; color:#888; font-size:14px; }
+  .empty-state{ text-align:center; padding:60px 20px; color:var(--sub); font-size:14px; }
 
-  footer{ background:var(--ink); color:#c9c9c9; padding:30px 20px; margin-top:40px; font-size:12.5px; text-align:center; }
+  footer{ background:var(--navy-deep); color:#B7C6EA; padding:32px 20px; margin-top:10px; font-size:12.5px; text-align:center; }
   footer strong{ color:#fff; }
 
   @media (max-width: 900px){ .product-grid{ grid-template-columns: repeat(3,1fr); } }
-  @media (max-width: 640px){ .product-grid{ grid-template-columns: repeat(2,1fr); } .toolbar{ top:57px; } }
+  @media (max-width: 640px){
+    .product-grid{ grid-template-columns: repeat(2,1fr); }
+    .hero-content h1{ font-size:24px; }
+  }
 </style>
 </head>
 <body>
 
-  <header class="site">
+  <div class="hero-band">
     <div class="brandrow">
       <div class="brandmark">
         <div class="logo"><img src="logo.jpg" alt="3DHY logo"></div>
-        <div class="name">3DHY Official Store</div>
+        <div>
+          <div class="name">3DHY Official Store</div>
+          <div class="sub">Custom apparel premium</div>
+        </div>
       </div>
       <a class="header-cta" onclick="fbq('track','Lead')" href="https://wa.me/6281299115928?text=Halo%20Kak%2C%20saya%20mau%20tanya-tanya%20produk%20kaos%203DHY" target="_blank" rel="noopener">💬 Chat Admin</a>
     </div>
-  </header>
 
-  <main>
-    <div class="toolbar">
-      <input type="text" class="search-box" id="searchBox" placeholder="Cari produk... (misal: KBF, huruf A, custom)">
-      <div class="cat-scroll" id="catScroll"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">✦ Cotton Combed 24s · Sablon DTF</div>
+      <h1>Katalog kaos custom, <span>pilih desain favoritmu</span></h1>
+      <p>Cari berdasarkan nama, kode, atau kategori. Setiap produk bisa digeser untuk lihat varian desain yang tersedia.</p>
     </div>
 
+    <div class="toolbar-card">
+      <div class="toolbar-inner">
+        <input type="text" class="search-box" id="searchBox" placeholder="Cari produk... (misal: KBF, huruf A, custom)">
+        <div class="cat-scroll" id="catScroll"></div>
+      </div>
+    </div>
+  </div>
+
+  <main>
     <div class="result-count" id="resultCount"></div>
     <div class="product-grid" id="productGrid"></div>
     <div class="empty-state" id="emptyState" style="display:none;">Produk tidak ditemukan. Coba kata kunci lain.</div>
@@ -118,7 +191,7 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
   <script>
     let allProducts = [];
     let activeCategory = 'Semua';
-    let variantIndex = {}; // productCode -> current variant index
+    let variantIndex = {};
 
     function formatRupiah(n){
       return 'Rp' + n.toLocaleString('id-ID');
@@ -187,6 +260,7 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
           <div class="pbody">
             <div class="pcat">${p.category}</div>
             <div class="ptitle">${p.name}${total > 1 ? ' — ' + variant.label : ''}</div>
+            ${p.description ? `<div class="pdesc">${p.description}</div>` : ''}
             <div class="pprice">${formatRupiah(p.price)}</div>
             <a class="btn" onclick="fbq('track','Lead')" href="${waLink(p.name, variant.label)}" target="_blank" rel="noopener">Chat &amp; Order</a>
           </div>
