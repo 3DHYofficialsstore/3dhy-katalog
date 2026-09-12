@@ -58,8 +58,20 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
 
   .product-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
   .pcard{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
-  .pcard .pthumb{ aspect-ratio:1; background:#f0f0f0; }
+  .pcard .pthumb{ aspect-ratio:1; background:#f0f0f0; position:relative; overflow:hidden; }
   .pcard .pthumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .pcard .pthumb .nav-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:32px; height:32px; border-radius:50%; border:none;
+    background:rgba(0,0,0,.45); color:#fff; font-size:16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; z-index:2;
+  }
+  .pcard .pthumb .nav-prev{ left:8px; }
+  .pcard .pthumb .nav-next{ right:8px; }
+  .pcard .pthumb .variant-badge{
+    position:absolute; bottom:8px; left:8px; background:rgba(0,0,0,.55); color:#fff;
+    font-size:11px; font-weight:700; padding:4px 9px; border-radius:999px; z-index:2;
+  }
   .pcard .pbody{ padding:12px; flex:1; display:flex; flex-direction:column; }
   .pcard .pcat{ font-size:10px; color:var(--brand); font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-bottom:4px; }
   .pcard .ptitle{ font-size:13px; font-weight:700; line-height:1.3; margin-bottom:8px; min-height:34px; }
@@ -106,13 +118,14 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
   <script>
     let allProducts = [];
     let activeCategory = 'Semua';
+    let variantIndex = {}; // productCode -> current variant index
 
     function formatRupiah(n){
       return 'Rp' + n.toLocaleString('id-ID');
     }
 
-    function waLink(productName){
-      const text = encodeURIComponent(`Halo Kak, saya mau order ${productName}`);
+    function waLink(productName, variantLabel){
+      const text = encodeURIComponent(`Halo Kak, saya mau order ${productName} - varian ${variantLabel}`);
       return `https://wa.me/6281299115928?text=${text}`;
     }
 
@@ -131,11 +144,20 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
       });
     }
 
+    function changeVariant(code, delta, total){
+      const current = variantIndex[code] || 0;
+      let next = (current + delta + total) % total;
+      variantIndex[code] = next;
+      renderProducts();
+    }
+
     function renderProducts(){
       const query = document.getElementById('searchBox').value.trim().toLowerCase();
       let filtered = allProducts.filter(p => {
         const matchCat = activeCategory === 'Semua' || p.category === activeCategory;
-        const matchQuery = !query || p.name.toLowerCase().includes(query) || p.code.toLowerCase().includes(query) || p.category.toLowerCase().includes(query);
+        const matchQuery = !query || p.name.toLowerCase().includes(query) || p.code.toLowerCase().includes(query)
+          || p.category.toLowerCase().includes(query)
+          || p.variants.some(v => v.label.toLowerCase().includes(query));
         return matchCat && matchQuery;
       });
 
@@ -150,17 +172,27 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
       }
       empty.style.display = 'none';
 
-      grid.innerHTML = filtered.map(p => `
+      grid.innerHTML = filtered.map(p => {
+        const idx = variantIndex[p.code] || 0;
+        const variant = p.variants[idx];
+        const total = p.variants.length;
+        return `
         <div class="pcard">
-          <div class="pthumb"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+          <div class="pthumb">
+            ${total > 1 ? `<button class="nav-btn nav-prev" onclick="changeVariant('${p.code}', -1, ${total})">‹</button>` : ''}
+            <img src="${variant.img}" alt="${p.name} ${variant.label}" loading="lazy">
+            ${total > 1 ? `<button class="nav-btn nav-next" onclick="changeVariant('${p.code}', 1, ${total})">›</button>` : ''}
+            ${total > 1 ? `<div class="variant-badge">${variant.label} (${idx+1}/${total})</div>` : ''}
+          </div>
           <div class="pbody">
             <div class="pcat">${p.category}</div>
-            <div class="ptitle">${p.name}</div>
+            <div class="ptitle">${p.name}${total > 1 ? ' — ' + variant.label : ''}</div>
             <div class="pprice">${formatRupiah(p.price)}</div>
-            <a class="btn" onclick="fbq('track','Lead')" href="${waLink(p.name)}" target="_blank" rel="noopener">Chat &amp; Order</a>
+            <a class="btn" onclick="fbq('track','Lead')" href="${waLink(p.name, variant.label)}" target="_blank" rel="noopener">Chat &amp; Order</a>
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     fetch('products.json')
