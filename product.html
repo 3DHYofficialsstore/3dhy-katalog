@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Produk — 3DHY Official Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1058408676075813');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<style>
+  :root{
+    --brand:#008DFF; --brand-dark:#0072D1; --blue-soft:#E8F4FF;
+    --ink:#0F1A2E; --sub:#63708A; --line:#E3E9F3; --bg:#F6F9FC; --wa:#25D366; --radius:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
+  h1,h2,h3{ font-family:'Sora','Inter',sans-serif; }
+  a{ color:inherit; }
+  img{ max-width:100%; }
+
+  header.site{ background:var(--brand); color:#fff; }
+  .brandrow{ max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 20px; gap:14px; flex-wrap:wrap; }
+  .brandmark{ display:flex; align-items:center; gap:10px; }
+  .brandmark .logo{ width:38px; height:38px; border-radius:10px; overflow:hidden; flex-shrink:0; }
+  .brandmark .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .brandmark .name{ font-family:'Sora',sans-serif; font-size:15.5px; font-weight:700; }
+  .back-link{ font-size:13px; font-weight:600; color:#fff; text-decoration:none; display:flex; align-items:center; gap:5px; }
+  .cart-link{ position:relative; display:flex; align-items:center; gap:6px; background:rgba(255,255,255,.18); padding:8px 14px; border-radius:999px; text-decoration:none; color:#fff; font-size:13px; font-weight:700; }
+  #cartBadge{ background:#fff; color:var(--brand); border-radius:999px; font-size:11px; font-weight:800; min-width:18px; height:18px; display:none; align-items:center; justify-content:center; padding:0 4px; }
+
+  main{ max-width:1140px; margin:0 auto; padding:26px 20px 80px; }
+  .breadcrumb{ font-size:12.5px; color:var(--sub); margin-bottom:18px; }
+  .breadcrumb a{ color:var(--brand); text-decoration:none; font-weight:600; }
+
+  .product-layout{ display:grid; grid-template-columns: 1fr 1fr; gap:32px; }
+  @media (max-width:820px){ .product-layout{ grid-template-columns:1fr; } }
+
+  .gallery-main{ background:var(--blue-soft); border-radius:var(--radius); aspect-ratio:1; overflow:hidden; margin-bottom:12px; }
+  .gallery-main img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-thumbs{ display:grid; grid-template-columns: repeat(9, 1fr); gap:7px; }
+  .thumb{ aspect-ratio:1; border-radius:8px; overflow:hidden; cursor:pointer; border:2px solid transparent; }
+  .thumb.active{ border-color:var(--brand); }
+  .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .pcat{ font-size:11px; color:var(--brand); font-weight:700; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; }
+  .ptitle{ font-size:24px; font-weight:800; margin-bottom:6px; }
+  .pvariant-label{ font-size:14px; color:var(--sub); margin-bottom:14px; }
+  .pprice{ font-size:26px; font-weight:800; color:var(--brand); margin-bottom:18px; }
+
+  .section-label{ font-size:12.5px; font-weight:700; color:var(--ink); margin:18px 0 8px; }
+  .size-grid{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+  .size-btn{
+    padding:9px 14px; border-radius:8px; border:1.5px solid var(--line); background:#fff;
+    font-size:13px; font-weight:700; cursor:pointer;
+  }
+  .size-btn.active{ background:var(--brand); border-color:var(--brand); color:#fff; }
+  .size-note{ font-size:11.5px; color:var(--sub); margin-bottom:6px; }
+
+  .qty-row{ display:flex; align-items:center; gap:14px; margin:16px 0 20px; }
+  .qty-control{ display:flex; align-items:center; border:1.5px solid var(--line); border-radius:10px; overflow:hidden; }
+  .qty-control button{ width:38px; height:38px; border:none; background:#fff; font-size:17px; cursor:pointer; }
+  .qty-control input{ width:46px; text-align:center; border:none; border-left:1px solid var(--line); border-right:1px solid var(--line); height:38px; font-size:14px; }
+
+  .add-cart-btn{
+    width:100%; padding:14px; border:none; border-radius:12px; background:var(--brand); color:#fff;
+    font-size:15px; font-weight:700; cursor:pointer; margin-bottom:10px;
+  }
+  .buy-now-btn{
+    width:100%; padding:14px; border:1.5px solid var(--brand); border-radius:12px; background:#fff; color:var(--brand);
+    font-size:15px; font-weight:700; cursor:pointer; text-decoration:none; display:block; text-align:center;
+  }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--ink); color:#fff; padding:12px 22px; border-radius:999px; font-size:13.5px; font-weight:600;
+    opacity:0; pointer-events:none; transition:.25s ease; z-index:50;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .copy-section{ margin-top:40px; border-top:1px solid var(--line); padding-top:24px; }
+  .copy-section h2{ font-size:18px; margin-bottom:14px; }
+  .copy-text{ font-size:14px; color:#37415a; white-space:pre-line; line-height:1.7; max-width:70ch; }
+
+  footer{ background:var(--brand-dark); color:#DCEFFF; padding:28px 20px; margin-top:20px; font-size:12.5px; text-align:center; }
+  footer strong{ color:#fff; }
+</style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="brandrow">
+      <div class="brandmark">
+        <div class="logo"><img src="logo.jpg" alt="3DHY logo"></div>
+        <div class="name">3DHY Official Store</div>
+      </div>
+      <a class="cart-link" href="cart.html">
+        🛒 Keranjang <span id="cartBadge">0</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="breadcrumb"><a href="katalog.html">← Kembali ke katalog</a></div>
+
+    <div id="content"></div>
+
+    <div class="copy-section" id="copySection" style="display:none;">
+      <h2>Tentang Produk Ini</h2>
+      <div class="copy-text" id="copyText"></div>
+    </div>
+  </main>
+
+  <footer>
+    <div><strong>3DHY Official Store</strong> — Kaos custom cotton combed 24s premium</div>
+    <div style="margin-top:6px;">WhatsApp: 0812 9911 5928 · 0852 7506 8224</div>
+  </footer>
+
+  <div class="toast" id="toast">Ditambahkan ke keranjang!</div>
+
+  <script src="app.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    let product = null;
+    let variantIdx = 0;
+    let selectedSize = SIZE_TIERS[1].size; // default "XS"
+    let qty = 1;
+
+    function currentPrice(){
+      const tier = SIZE_TIERS.find(t => t.size === selectedSize);
+      return tier ? tier.price : SIZE_TIERS[1].price;
+    }
+
+    function render(){
+      if(!product){
+        document.getElementById('content').innerHTML = '<p style="padding:40px 0;color:#888;">Produk tidak ditemukan.</p>';
+        return;
+      }
+      const variant = product.variants[variantIdx];
+
+      document.getElementById('content').innerHTML = `
+        <div class="product-layout">
+          <div>
+            <div class="gallery-main"><img id="mainImg" src="${variant.img}" alt="${product.name} ${variant.label}"></div>
+            <div class="gallery-thumbs" id="thumbGrid"></div>
+          </div>
+          <div>
+            <div class="pcat">${product.category}</div>
+            <div class="ptitle">${product.name}</div>
+            <div class="pvariant-label">Varian dipilih: <strong>Huruf ${variant.label}</strong></div>
+            <div class="pprice" id="priceDisplay">${formatRupiah(currentPrice())}</div>
+
+            <div class="section-label">Pilih Ukuran</div>
+            <div class="size-note">${product.description || ''}</div>
+            <div class="size-grid" id="sizeGrid"></div>
+
+            <div class="section-label">Jumlah</div>
+            <div class="qty-row">
+              <div class="qty-control">
+                <button onclick="changeQty(-1)">−</button>
+                <input type="text" id="qtyInput" value="${qty}" readonly>
+                <button onclick="changeQty(1)">+</button>
+              </div>
+            </div>
+
+            <button class="add-cart-btn" onclick="handleAddToCart()">Tambah ke Keranjang</button>
+            <a class="buy-now-btn" id="buyNowBtn" href="#">Beli Langsung via WhatsApp</a>
+          </div>
+        </div>
+      `;
+
+      renderThumbs();
+      renderSizes();
+      updateBuyNowLink();
+    }
+
+    function renderThumbs(){
+      const grid = document.getElementById('thumbGrid');
+      grid.innerHTML = product.variants.map((v, i) =>
+        `<div class="thumb${i===variantIdx?' active':''}" onclick="selectVariant(${i})"><img src="${v.img}" alt="${v.label}"></div>`
+      ).join('');
+    }
+
+    function renderSizes(){
+      const grid = document.getElementById('sizeGrid');
+      grid.innerHTML = SIZE_TIERS.map(t =>
+        `<button class="size-btn${t.size===selectedSize?' active':''}" onclick="selectSize('${t.size}')">${t.size}</button>`
+      ).join('');
+    }
+
+    function selectVariant(i){
+      variantIdx = i;
+      document.getElementById('mainImg').src = product.variants[i].img;
+      document.querySelector('.pvariant-label').innerHTML = `Varian dipilih: <strong>Huruf ${product.variants[i].label}</strong>`;
+      renderThumbs();
+      updateBuyNowLink();
+    }
+
+    function selectSize(size){
+      selectedSize = size;
+      document.getElementById('priceDisplay').textContent = formatRupiah(currentPrice());
+      renderSizes();
+      updateBuyNowLink();
+    }
+
+    function changeQty(delta){
+      qty = Math.max(1, qty + delta);
+      document.getElementById('qtyInput').value = qty;
+      updateBuyNowLink();
+    }
+
+    function updateBuyNowLink(){
+      const variant = product.variants[variantIdx];
+      const text = encodeURIComponent(`Halo Kak, saya mau order ${product.name} - Varian ${variant.label} - Size ${selectedSize} x${qty} = ${formatRupiah(currentPrice()*qty)}`);
+      document.getElementById('buyNowBtn').href = `https://wa.me/${WA_NUMBER}?text=${text}`;
+    }
+
+    function handleAddToCart(){
+      const variant = product.variants[variantIdx];
+      addToCart({
+        code: product.code,
+        productName: product.name,
+        variant: variant.label,
+        size: selectedSize,
+        price: currentPrice(),
+        qty: qty
+      });
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    fetch('products.json')
+      .then(res => res.json())
+      .then(data => {
+        product = data.find(p => p.code === code) || data[0];
+        if(product){
+          document.getElementById('copyText').textContent = product.copywriting || '';
+          document.getElementById('copySection').style.display = product.copywriting ? 'block' : 'none';
+        }
+        render();
+      });
+  </script>
+
+</body>
+</html>

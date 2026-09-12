@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keranjang — 3DHY Official Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#008DFF; --brand-dark:#0072D1; --blue-soft:#E8F4FF;
+    --ink:#0F1A2E; --sub:#63708A; --line:#E3E9F3; --bg:#F6F9FC; --wa:#25D366; --radius:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
+  h1,h2{ font-family:'Sora','Inter',sans-serif; }
+  a{ color:inherit; }
+
+  header.site{ background:var(--brand); color:#fff; }
+  .brandrow{ max-width:900px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 20px; gap:14px; flex-wrap:wrap; }
+  .brandmark{ display:flex; align-items:center; gap:10px; }
+  .brandmark .logo{ width:38px; height:38px; border-radius:10px; overflow:hidden; flex-shrink:0; }
+  .brandmark .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .brandmark .name{ font-family:'Sora',sans-serif; font-size:15.5px; font-weight:700; }
+  .back-link{ font-size:13px; font-weight:600; color:#fff; text-decoration:none; }
+
+  main{ max-width:900px; margin:0 auto; padding:26px 20px 60px; }
+  h1{ font-size:22px; margin-bottom:20px; }
+
+  .cart-item{
+    background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px;
+    display:flex; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap;
+  }
+  .cart-item .info{ flex:1; min-width:200px; }
+  .cart-item .ptitle{ font-weight:700; font-size:14px; margin-bottom:3px; }
+  .cart-item .pmeta{ font-size:12.5px; color:var(--sub); }
+  .cart-item .price{ font-weight:800; color:var(--brand); font-size:15px; }
+  .qty-control{ display:flex; align-items:center; border:1.5px solid var(--line); border-radius:8px; overflow:hidden; }
+  .qty-control button{ width:32px; height:32px; border:none; background:#fff; font-size:15px; cursor:pointer; }
+  .qty-control span{ width:34px; text-align:center; font-size:13px; display:inline-block; }
+  .remove-btn{ background:none; border:none; color:#C1272D; font-size:12.5px; font-weight:700; cursor:pointer; text-decoration:underline; }
+
+  .empty{ text-align:center; padding:60px 20px; color:var(--sub); }
+  .empty a{ color:var(--brand); font-weight:700; text-decoration:none; }
+
+  .summary{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px; margin-top:20px; }
+  .summary-row{ display:flex; justify-content:space-between; font-size:15px; font-weight:700; margin-bottom:14px; }
+  .checkout-btn{
+    display:block; width:100%; text-align:center; padding:14px; border-radius:10px;
+    background:var(--wa); color:#fff; font-weight:700; font-size:15px; text-decoration:none;
+  }
+
+  footer{ background:var(--brand-dark); color:#DCEFFF; padding:24px 20px; margin-top:20px; font-size:12.5px; text-align:center; }
+</style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="brandrow">
+      <div class="brandmark">
+        <div class="logo"><img src="logo.jpg" alt="3DHY logo"></div>
+        <div class="name">3DHY Official Store</div>
+      </div>
+      <a class="back-link" href="katalog.html">← Lanjut belanja</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Keranjang Kamu</h1>
+    <div id="cartList"></div>
+    <div id="summarySection"></div>
+  </main>
+
+  <footer>
+    <div><strong>3DHY Official Store</strong></div>
+    <div style="margin-top:6px;">WhatsApp: 0812 9911 5928 · 0852 7506 8224</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function render(){
+      const cart = getCart();
+      const list = document.getElementById('cartList');
+      const summary = document.getElementById('summarySection');
+
+      if(cart.length === 0){
+        list.innerHTML = '';
+        summary.innerHTML = '<div class="empty">Keranjang masih kosong.<br><br><a href="katalog.html">Lihat katalog produk →</a></div>';
+        return;
+      }
+
+      list.innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+          <div class="info">
+            <div class="ptitle">${item.productName} — Huruf ${item.variant}</div>
+            <div class="pmeta">Size ${item.size} · ${formatRupiah(item.price)}/pcs</div>
+          </div>
+          <div class="qty-control">
+            <button onclick="changeQty(${i}, -1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${i}, 1)">+</button>
+          </div>
+          <div class="price">${formatRupiah(item.price * item.qty)}</div>
+          <button class="remove-btn" onclick="removeItem(${i})">Hapus</button>
+        </div>
+      `).join('');
+
+      summary.innerHTML = `
+        <div class="summary">
+          <div class="summary-row"><span>Total (${cartCount()} item)</span><span>${formatRupiah(cartTotal())}</span></div>
+          <a class="checkout-btn" href="${checkoutLink()}" target="_blank" rel="noopener" onclick="fbq && fbq('track','Lead')">
+            💬 Checkout via WhatsApp
+          </a>
+        </div>
+      `;
+    }
+
+    function changeQty(index, delta){
+      const cart = getCart();
+      updateCartQty(index, cart[index].qty + delta);
+      render();
+    }
+
+    function removeItem(index){
+      removeFromCart(index);
+      render();
+    }
+
+    render();
+  </script>
+
+</body>
+</html>
