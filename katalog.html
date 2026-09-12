@@ -225,9 +225,9 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
       const query = document.getElementById('searchBox').value.trim().toLowerCase();
       let filtered = allProducts.filter(p => {
         const matchCat = activeCategory === 'Semua' || p.category === activeCategory;
-        const matchQuery = !query || p.name.toLowerCase().includes(query) || p.code.toLowerCase().includes(query)
+        const matchQuery = !query || p.name.toLowerCase().includes(query) || p.sku.toLowerCase().includes(query)
           || p.category.toLowerCase().includes(query)
-          || p.variants.some(v => v.label.toLowerCase().includes(query));
+          || p.variants.some(v => v.value.toLowerCase().includes(query));
         return matchCat && matchQuery;
       });
 
@@ -243,20 +243,20 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
       empty.style.display = 'none';
 
       grid.innerHTML = filtered.map(p => {
-        const idx = variantIndex[p.code] || 0;
+        const idx = variantIndex[p.sku] || 0;
         const variant = p.variants[idx];
         const total = p.variants.length;
         return `
         <div class="pcard">
-          <a href="product.html?code=${p.code}" style="text-decoration:none;color:inherit;display:block;">
+          <a href="product.html?code=${p.sku}" style="text-decoration:none;color:inherit;display:block;">
           <div class="pthumb">
-            <img src="${variant.img}" alt="${p.name} ${variant.label}" loading="lazy">
+            <img src="${variant.image}" alt="${p.name} ${variant.value}" loading="lazy">
             ${total > 1 ? `<div class="variant-badge">${total} varian huruf</div>` : ''}
           </div>
           <div class="pbody">
             <div class="pcat">${p.category}</div>
             <div class="ptitle">${p.name}</div>
-            ${p.description ? `<div class="pdesc">${p.description}</div>` : ''}
+            ${p.short_description ? `<div class="pdesc">${p.short_description}</div>` : ''}
             <div class="pprice">Mulai ${formatRupiah(SIZE_TIERS[0].price)}</div>
             <span class="btn">Lihat Produk &amp; Pesan →</span>
           </div>
@@ -290,8 +290,8 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
         if(isPaused) return;
         allProducts.forEach(p => {
           if(p.variants.length > 1){
-            const current = variantIndex[p.code] || 0;
-            variantIndex[p.code] = (current + 1) % p.variants.length;
+            const current = variantIndex[p.sku] || 0;
+            variantIndex[p.sku] = (current + 1) % p.variants.length;
           }
         });
         renderProducts();

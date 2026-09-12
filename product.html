@@ -157,17 +157,17 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
       document.getElementById('content').innerHTML = `
         <div class="product-layout">
           <div>
-            <div class="gallery-main"><img id="mainImg" src="${variant.img}" alt="${product.name} ${variant.label}"></div>
+            <div class="gallery-main"><img id="mainImg" src="${variant.image}" alt="${product.name} ${variant.value}"></div>
             <div class="gallery-thumbs" id="thumbGrid"></div>
           </div>
           <div>
             <div class="pcat">${product.category}</div>
             <div class="ptitle">${product.name}</div>
-            <div class="pvariant-label">Varian dipilih: <strong>Huruf ${variant.label}</strong></div>
+            <div class="pvariant-label">Varian dipilih: <strong>${product.attribute_name} ${variant.value}</strong></div>
             <div class="pprice" id="priceDisplay">${formatRupiah(currentPrice())}</div>
 
             <div class="section-label">Pilih Ukuran</div>
-            <div class="size-note">${product.description || ''}</div>
+            <div class="size-note">${product.short_description || ''}</div>
             <div class="size-grid" id="sizeGrid"></div>
 
             <div class="section-label">Jumlah</div>
@@ -193,7 +193,7 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
     function renderThumbs(){
       const grid = document.getElementById('thumbGrid');
       grid.innerHTML = product.variants.map((v, i) =>
-        `<div class="thumb${i===variantIdx?' active':''}" onclick="selectVariant(${i})"><img src="${v.img}" alt="${v.label}"></div>`
+        `<div class="thumb${i===variantIdx?' active':''}" onclick="selectVariant(${i})"><img src="${v.image}" alt="${v.value}"></div>`
       ).join('');
     }
 
@@ -207,7 +207,7 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
     function selectVariant(i){
       variantIdx = i;
       document.getElementById('mainImg').src = product.variants[i].img;
-      document.querySelector('.pvariant-label').innerHTML = `Varian dipilih: <strong>Huruf ${product.variants[i].label}</strong>`;
+      document.querySelector('.pvariant-label').innerHTML = `Varian dipilih: <strong>${product.attribute_name} ${product.variants[i].value}</strong>`;
       renderThumbs();
       updateBuyNowLink();
     }
@@ -227,16 +227,16 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
 
     function updateBuyNowLink(){
       const variant = product.variants[variantIdx];
-      const text = encodeURIComponent(`Halo Kak, saya mau order ${product.name} - Varian ${variant.label} - Size ${selectedSize} x${qty} = ${formatRupiah(currentPrice()*qty)}`);
+      const text = encodeURIComponent(`Halo Kak, saya mau order ${product.name} - Varian ${variant.value} - Size ${selectedSize} x${qty} = ${formatRupiah(currentPrice()*qty)}`);
       document.getElementById('buyNowBtn').href = `https://wa.me/${WA_NUMBER}?text=${text}`;
     }
 
     function handleAddToCart(){
       const variant = product.variants[variantIdx];
       addToCart({
-        code: product.code,
+        code: product.sku,
         productName: product.name,
-        variant: variant.label,
+        variant: variant.value,
         size: selectedSize,
         price: currentPrice(),
         qty: qty
@@ -249,10 +249,10 @@ src="https://www.facebook.com/tr?id=1058408676075813&ev=PageView&noscript=1"
     fetch('products.json')
       .then(res => res.json())
       .then(data => {
-        product = data.find(p => p.code === code) || data[0];
+        product = data.find(p => p.sku === code) || data[0];
         if(product){
-          document.getElementById('copyText').textContent = product.copywriting || '';
-          document.getElementById('copySection').style.display = product.copywriting ? 'block' : 'none';
+          document.getElementById('copyText').textContent = product.long_description || '';
+          document.getElementById('copySection').style.display = product.long_description ? 'block' : 'none';
         }
         render();
       });
